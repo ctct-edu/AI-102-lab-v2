@@ -9,16 +9,13 @@ lab:
 
 この演習では、Custom Vision サービスを使用して、3 種類の果物 (りんご、バナナ、オレンジ) を識別できる画像分類モデルをトレーニングします。
 
-## このコースのリポジトリをクローンする
+## 演習用ファイルの確認
 
-まだ **mslearn-ai-vision** コードリポジトリをこのラボで作業している環境にクローンしていない場合は、次の手順に従ってクローンします。すでにクローンしている場合は、Visual Studio Code でクローンしたフォルダーを開きます。
+演習用のコード ファイルは既に準備されています。Visual Studio Code で Labfiles フォルダが開かれていることを確認してください。
 
-1. Visual Studio Code を起動します。
-2. パレット (SHIFT+CTRL+P) を開き、**Git: Clone** コマンドを実行して `https://github.com/MicrosoftLearning/mslearn-ai-vision` リポジトリをローカルフォルダーにクローンします (フォルダーはどこでも構いません)。
-3. リポジトリがクローンされたら、Visual Studio Code でフォルダーを開きます。
-4. リポジトリ内の C# コードプロジェクトをサポートするために追加のファイルがインストールされるのを待ちます。
-
-    > **注**: ビルドおよびデバッグに必要なアセットを追加するように求められた場合は、**Not Now** を選択します。*Detected an Azure Function Project in folder* メッセージが表示された場合は、そのメッセージを安全に閉じることができます。
+1. Visual Studio Code で、左側の Explorer ペインに **Labfiles** フォルダが表示されていることを確認します。
+2. **Labfiles** フォルダ内に複数の演習フォルダが含まれていることを確認してください。
+3. この演習では、**04-custom-vision-image-classification** フォルダを使用します。
 
 ## Custom Vision リソースを作成する
 
@@ -32,7 +29,7 @@ lab:
     - **サブスクリプション**: あなたの Azure サブスクリプション
     - **リソースグループ**: *リソースグループを選択または作成 (制限付きサブスクリプションを使用している場合は、新しいリソースグループを作成する権限がない場合があります - 提供されたものを使用してください)*
     - **リージョン**: *利用可能なリージョンを選択*
-    - **名前**: *一意の名前を入力*
+    - **名前**: Lab04-yyyymmdd-任意の文字列（お名前等）※例:Lab04-20250801-doi
     - **トレーニング価格レベル**: F0
     - **予測価格レベル**: F0
 
@@ -46,7 +43,7 @@ lab:
 
 画像分類モデルをトレーニングするには、トレーニングリソースに基づいて Custom Vision プロジェクトを作成する必要があります。これを行うには、Custom Vision ポータルを使用します。
 
-1. Visual Studio Code で、リポジトリをクローンした **07-custom-vision-image-classification/training-images** フォルダー内のトレーニング画像を表示します。このフォルダーには、りんご、バナナ、オレンジの画像のサブフォルダーが含まれています。
+1. Visual Studio Code で、**04-custom-vision-image-classification/training-images** フォルダー内のトレーニング画像を表示します。このフォルダーには、りんご、バナナ、オレンジの画像のサブフォルダーが含まれています。
 2. 新しいブラウザタブで Custom Vision ポータル `https://customvision.ai` を開きます。サインインを求められた場合は、Azure サブスクリプションに関連付けられた Microsoft アカウントを使用してサインインし、利用規約に同意します。
 3. Custom Vision ポータルで、次の設定で新しいプロジェクトを作成します：
     - **名前**: Classify Fruit
@@ -95,7 +92,7 @@ Custom Vision ポータルは、画像のアップロードとタグ付け、お
 
 > **注**: この演習では、**C#** または **Python** SDK のいずれかを使用して API を使用できます。以下の手順では、好みの言語に応じて適切な操作を行います。
 
-1. Visual Studio Code で、**Explorer** ペインで **07-custom-vision-image-classification** フォルダーに移動し、言語の好みに応じて **C-Sharp** または **Python** フォルダーを展開します。
+1. Visual Studio Code で、**Explorer** ペインで **04-custom-vision-image-classification** フォルダーに移動し、言語の好みに応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **train-classifier** フォルダーを右クリックして統合ターミナルを開きます。次に、言語の好みに応じて適切なコマンドを実行して Custom Vision トレーニングパッケージをインストールします：
 
 **C#**
@@ -113,7 +110,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 3. **train-classifier** フォルダーの内容を表示し、設定ファイルが含まれていることを確認します：
     - **C#**: appsettings.json
     - **Python**: .env
-
+    
     設定ファイルを開き、Custom Vision *トレーニング* リソースのエンドポイントとキー、および以前に作成した分類プロジェクトのプロジェクト ID を反映するように設定値を更新します。変更を保存します。
 4. **train-classifier** フォルダーにはクライアントアプリケーションのコードファイルが含まれていることを確認します：
 
@@ -156,7 +153,7 @@ python train-classifier.py
 
 画像分類モデルを公開したので、クライアントアプリケーションから使用できます。再び、**C#** または **Python** を使用できます。
 
-1. Visual Studio Code で、**07-custom-vision-image-classification** フォルダー内のサブフォルダー (**C-Sharp** または **Python**) で **test-classifier** フォルダーを右クリックして統合ターミナルを開きます。次に、Custom Vision 予測パッケージをインストールするために適切な SDK 固有のコマンドを入力します：
+1. Visual Studio Code で、**04-custom-vision-image-classification** フォルダー内のサブフォルダー (**C-Sharp** または **Python**) で **test-classifier** フォルダーを右クリックして統合ターミナルを開きます。次に、Custom Vision 予測パッケージをインストールするために適切な SDK 固有のコマンドを入力します：
 
 **C#**
 

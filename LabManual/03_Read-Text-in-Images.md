@@ -1,33 +1,31 @@
 ---
 lab:
     title: '画像内のテキストを読み取る'
-    module: 'モジュール 11 - 画像およびドキュメント内のテキストを読み取る'
+    module: 'モジュール 3 - 画像およびドキュメント内のテキストを読み取る'
 ---
 
 # 画像内のテキストを読み取る
 
 光学文字認識 (OCR) は、画像やドキュメント内のテキストを読み取るコンピュータ ビジョンの一部です。**Azure AI Vision** サービスは、テキストを読み取るための API を提供しており、この演習でそれを探索します。
 
-## このコースのリポジトリをクローンする
+## 演習用ファイルの確認
 
-まだ行っていない場合は、このコースのコード リポジトリをクローンする必要があります。
+演習用のコード ファイルは既に準備されています。Visual Studio Code で Labfiles フォルダが開かれていることを確認してください。
 
-1. Visual Studio Code を起動します。
-2. パレット (SHIFT+CTRL+P) を開き、**Git: Clone** コマンドを実行して `https://github.com/MicrosoftLearning/mslearn-ai-vision` リポジトリをローカル フォルダーにクローンします (フォルダーはどこでも構いません)。
-3. リポジトリがクローンされたら、Visual Studio Code でフォルダーを開きます。
-4. リポジトリ内の C# コード プロジェクトをサポートするための追加ファイルがインストールされるのを待ちます。
- > **注**: ビルドおよびデバッグに必要なアセットを追加するように求められた場合は、**Not Now** を選択します。*Detected an Azure Function Project in folder* というメッセージが表示された場合は、そのメッセージを閉じても問題ありません。
+1. Visual Studio Code で、左側の Explorer ペインに **Labfiles** フォルダが表示されていることを確認します。
+2. **Labfiles** フォルダ内に複数の演習フォルダが含まれていることを確認してください。
+3. この演習では、**03-ocr** フォルダを使用します。
 
 ## Azure AI サービス リソースをプロビジョニングする
 
 サブスクリプションにまだリソースがない場合は、**Azure AI サービス** リソースをプロビジョニングする必要があります。
 
 1. `https://portal.azure.com` で Azure ポータルを開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. 上部の検索バーで *Azure AI services* を検索し、**Azure AI Services** を選択して、次の設定で Azure AI サービス マルチサービス アカウント リソースを作成します。
+2. 上部の検索バーで *Azure AI services* を検索し、**Azure AI サービス** を選択して、次の設定で Azure AI サービス マルチサービス アカウント リソースを作成します。
     - **サブスクリプション**: *Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成 (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない場合があります - 提供されたものを使用します)*
     - **リージョン**: *East US、France Central、Korea Central、North Europe、Southeast Asia、West Europe、West US、または East Asia から選択\**
-    - **名前**: *一意の名前を入力*
+    - **名前**: Lab03-yyyymmdd-任意の文字列（お名前等）※例:Lab03-20250801-doi
     - **価格レベル**: Standard S0
 
     \*Azure AI Vision 4.0 の機能は現在これらのリージョンでのみ利用可能です。
@@ -42,7 +40,7 @@ lab:
 
 > **注**: **C#** または **Python** のいずれかの SDK を使用することができます。以下の手順では、希望する言語に適した操作を行います。
 
-1. Visual Studio Code の **Explorer** ペインで、**Labfiles\\05-ocr** フォルダーに移動し、希望する言語に応じて **C-Sharp** または **Python** フォルダーを展開します。
+1. Visual Studio Code の **Explorer** ペインで、**03-ocr** フォルダーに移動し、希望する言語に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **read-text** フォルダーを右クリックして統合ターミナルを開き、希望する言語に応じて次のコマンドを実行して Azure AI Vision SDK パッケージをインストールします:
 
     **C#**
@@ -51,7 +49,7 @@ lab:
     dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
     ```
 
-    > **Note**: If you are prompted to install dev kit extensions, you can safely close the message.
+    > **注**: 開発キット拡張機能のインストールを求められた場合は、そのメッセージを閉じても問題ありません。.
 
     **Python**
     
@@ -62,6 +60,7 @@ lab:
 3. **read-text** フォルダーの内容を表示し、設定ファイルが含まれていることを確認します:
     - **C#**: appsettings.json
     - **Python**: .env
+
     設定ファイルを開き、Azure AI サービス リソースの **エンドポイント** と認証 **キー** を反映するように設定値を更新します。変更を保存します。
 
 ## Azure AI Vision SDK を使用して画像からテキストを読み取る
@@ -343,7 +342,7 @@ lab:
     ```
 
 16. プロンプトが表示されたら **1** を入力し、画像内の各テキスト行とその位置を確認します。各単語の信頼度も返されることに注意してください。
-17. **read-text** フォルダーで **text.jpg** 画像を選択し、各 *単語* の周りにポリゴンがあることを確認します。
+17. **read-text** フォルダーで **text.jpg** 画像を選択し、各*単語* の周りにポリゴンがあることを確認します。
 
 ## Azure AI Vision SDK を使用して手書きのテキストを読み取る
 

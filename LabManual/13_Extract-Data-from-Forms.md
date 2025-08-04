@@ -10,21 +10,13 @@ lab:
 
 **Azure AI Document Intelligence** は、ユーザーが自動データ処理ソフトウェアを構築できる Azure AI サービスです。このソフトウェアは、光学文字認識 (OCR) を使用してフォームドキュメントからテキスト、キー/値ペア、およびテーブルを抽出できます。Azure AI Document Intelligence には、請求書、領収書、名刺を認識するための事前構築済みモデルがあります。このサービスは、カスタムモデルをトレーニングする機能も提供します。この演習では、カスタムモデルの構築に焦点を当てます。
 
-## Visual Studio Code でアプリを開発する準備をする
+## 演習用ファイルの確認
 
-次に、サービス SDK を使用して Visual Studio Code を使用してアプリを開発します。アプリのコードファイルは GitHub リポジトリに提供されています。
+演習用のコード ファイルは既に準備されています。Visual Studio Code で Labfiles フォルダが開かれていることを確認してください。
 
-> **ヒント**: すでに **mslearn-ai-document-intelligence** リポジトリをクローンしている場合は、Visual Studio Code で開きます。そうでない場合は、次の手順に従って開発環境にクローンします。
-
-1. Visual Studio Code を起動します。
-1. パレット (SHIFT+CTRL+P) を開き、**Git: Clone** コマンドを実行して `https://github.com/MicrosoftLearning/mslearn-ai-document-intelligence` リポジトリをローカルフォルダーにクローンします (フォルダーはどこでも構いません)。
-1. リポジトリがクローンされたら、Visual Studio Code でフォルダーを開きます。
-
-    > **注**: Visual Studio Code がコードを信頼するように求めるポップアップメッセージを表示した場合は、ポップアップで **Yes, I trust the authors** オプションをクリックします。
-
-1. リポジトリ内の C# コードプロジェクトをサポートするために追加のファイルがインストールされるのを待ちます。
-
-    > **注**: ビルドおよびデバッグに必要なアセットを追加するように求められた場合は、**Not Now** を選択します。*Detected an Azure Function Project in folder* メッセージが表示された場合は、そのメッセージを安全に閉じることができます。
+1. Visual Studio Code で、左側の Explorer ペインに **Labfiles** フォルダが表示されていることを確認します。
+2. **Labfiles** フォルダ内に複数の演習フォルダが含まれていることを確認してください。
+3. この演習では、**13-custom-document-intelligence** フォルダを使用します。
 
 ## Azure AI Document Intelligence リソースを作成する
 
@@ -35,9 +27,9 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
 1. **Document Intelligence** ページで、**Create** を選択します。
 1. **Create Document Intelligence** ページで、次の設定を使用してリソースを構成します：
     - **サブスクリプション**: あなたの Azure サブスクリプション。
-    - **リソースグループ**: *DocIntelligenceResources* などの一意の名前でリソースグループを選択または作成します。
+    - **リソースグループ**: *リソースグループを選択または作成*
     - **リージョン**: 近くのリージョンを選択します。
-    - **名前**: グローバルに一意の名前を入力します。
+    - **名前**: Lab13-yyyymmdd-任意の文字列（お名前等）※例:Lab13-20250801-doi
     - **価格レベル**: **Free F0** を選択します (Free レベルが利用できない場合は、**Standard S0** を選択します)。
 1. 次に **Review + create** を選択し、**Create** を選択します。Azure が Azure AI Document Intelligence リソースを作成するのを待ちます。
 1. デプロイが完了したら、**Go to resource** を選択してリソースの **概要** ページを表示します。
@@ -48,7 +40,7 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
 
 ![このプロジェクトで使用される請求書の画像](../media/Form_1.jpg)。
 
-1. **Visual Studio Code** に戻ります。*Explorer* ペインで **Labfiles/02-custom-document-intelligence** フォルダーを開き、**sample-forms** フォルダーを展開します。フォルダー内に **.json** および **.jpg** で終わるファイルがあることに注意してください。
+1. **Visual Studio Code** で、*Explorer* ペインで **Labfiles/13-custom-document-intelligence** フォルダーを開き、**sample-forms** フォルダーを展開します。フォルダー内に **.json** および **.jpg** で終わるファイルがあることに注意してください。
 
     **.jpg** ファイルを使用してモデルをトレーニングします。
 
@@ -62,7 +54,7 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
 
     ![リソースグループページの例](../media/resource_group_variables.png)。
 
-1. Visual Studio Code で、*Explorer* ペインで **Labfiles/02-custom-document-intelligence** フォルダーを開き、言語の好みに応じて **CSharp** または **Python** フォルダーを展開します。各フォルダーには、Azure OpenAI 機能を統合するアプリの言語固有のファイルが含まれています。
+1. Visual Studio Code で、*Explorer* ペインで **Labfiles/13-custom-document-intelligence** フォルダーを開き、言語の好みに応じて **CSharp** または **Python** フォルダーを展開します。各フォルダーには、Azure OpenAI 機能を統合するアプリの言語固有のファイルが含まれています。
 
 1. コードファイルが含まれている **CSharp** または **Python** フォルダーを右クリックし、**統合ターミナルで開く** を選択します。
 
@@ -82,7 +74,7 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
 
     > **重要**: **Name** 値を記録し、ステップ 11 で使用します。
 
-1. Visual Studio Code で **Labfiles/02-custom-document-intelligence** フォルダーを開き、**setup.cmd** を選択します。このスクリプトを使用して、必要な他の Azure リソースを作成するために必要な Azure コマンドラインインターフェイス (CLI) コマンドを実行します。
+1. Visual Studio Code で **Labfiles/13-custom-document-intelligence** フォルダーを開き、**setup.cmd** を選択します。このスクリプトを使用して、必要な他の Azure リソースを作成するために必要な Azure コマンドラインインターフェイス (CLI) コマンドを実行します。
 
 1. **setup.cmd** スクリプトでコマンドを確認します。このプログラムは次のことを行います：
     - Azure リソースグループにストレージアカウントを作成します。
@@ -106,7 +98,7 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
 
 1. スクリプトが完了したら、表示された出力を確認します。
 
-1. Azure ポータルでリソースグループを更新し、作成された Azure Storage アカウントが含まれていることを確認します。ストレージアカウントを開き、左側のペインで **Storage browser** を選択します。次に、Storage Browser で **Blob containers** を展開し、**sampleforms** コンテナーを選択して、ローカルの **02-custom-document-intelligence/sample-forms** フォルダーからファイルがアップロードされたことを確認します。
+1. Azure ポータルでリソースグループを更新し、作成された Azure Storage アカウントが含まれていることを確認します。ストレージアカウントを開き、左側のペインで **Storage browser** を選択します。次に、Storage Browser で **Blob containers** を展開し、**sampleforms** コンテナーを選択して、ローカルの **13-custom-document-intelligence/sample-forms** フォルダーからファイルがアップロードされたことを確認します。
 
 ## Document Intelligence Studio を使用してモデルをトレーニングする
 
@@ -148,7 +140,7 @@ Azure AI Document Intelligence サービスを使用するには、Azure サブ�
     pip install azure-ai-formrecognizer==3.3.3
     ```
 
-1. Visual Studio Code で **Labfiles/02-custom-document-intelligence** フォルダーを開き、使用している言語を選択します。構成ファイル (**appsettings.json** または **.env**、言語の好みに応じて) を次の値で編集します：
+1. Visual Studio Code で **Labfiles/13-custom-document-intelligence** フォルダーを開き、使用している言語を選択します。構成ファイル (**appsettings.json** または **.env**、言語の好みに応じて) を次の値で編集します：
     - Document Intelligence エンドポイント。
     - Document Intelligence キー。
     - モデルをトレーニングする際に提供したモデル ID。これは Document Intelligence Studio の **Models** ページで確認できます。変更を保存します。

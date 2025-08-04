@@ -8,15 +8,13 @@ lab:
 
 Azure AI Vision は、画像を分析することで視覚入力を解釈する人工知能機能です。Microsoft Azure では、**Vision** Azure AI サービスが一般的なコンピュータ ビジョン タスク用の事前構築モデルを提供しており、画像のキャプションやタグの提案、一般的なオブジェクトや人物の検出などが含まれます。
 
-## このコースのリポジトリをクローンする
+## 演習用ファイルの確認
 
-まだ **Azure AI Vision** コード リポジトリを作業環境にクローンしていない場合は、次の手順に従ってクローンします。すでにクローンしている場合は、Visual Studio Code でクローンしたフォルダーを開きます。
+演習用のコード ファイルは既に準備されています。Visual Studio Code で Labfiles フォルダが開かれていることを確認してください。
 
-1. Visual Studio Code を起動します。
-2. パレット (SHIFT+CTRL+P) を開き、**Git: Clone** コマンドを実行して `https://github.com/MicrosoftLearning/mslearn-ai-vision` リポジトリをローカル フォルダーにクローンします (フォルダーはどこでも構いません)。
-3. リポジトリがクローンされたら、Visual Studio Code でフォルダーを開きます。
-4. リポジトリ内の C# コード プロジェクトをサポートするための追加ファイルがインストールされるのを待ちます。
- > **注**: ビルドおよびデバッグに必要なアセットを追加するように求められた場合は、**Not Now** を選択します。*Detected an Azure Function Project in folder* というメッセージが表示された場合は、そのメッセージを閉じても問題ありません。
+1. Visual Studio Code で、左側の Explorer ペインに **Labfiles** フォルダが表示されていることを確認します。
+2. **Labfiles** フォルダ内に複数の演習フォルダが含まれていることを確認してください。
+3. この演習では、**02-analyze-images** フォルダを使用します。
 
 ## Azure AI サービス リソースをプロビジョニングする
 
@@ -24,11 +22,11 @@ Azure AI Vision は、画像を分析することで視覚入力を解釈する�
 
 1. `https://portal.azure.com` で Azure ポータルを開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **リソースの作成** を選択します。
-3. 検索バーで *Azure AI services* を検索し、**Azure AI Services** を選択して、次の設定で Azure AI サービス マルチサービス アカウント リソースを作成します。
+3. 検索バーで *Azure AI サービス* を検索し、**Azure AI サービス** を選択して、次の設定で Azure AI サービス マルチサービス アカウント リソースを作成します。
     - **サブスクリプション**: *Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成 (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない場合があります - 提供されたものを使用します)*
     - **リージョン**: *East US、France Central、Korea Central、North Europe、Southeast Asia、West Europe、West US、または East Asia から選択\**
-    - **名前**: *一意の名前を入力*
+    - **名前**:  Lab02-yyyymmdd-任意の文字列（お名前等）※例:Lab02-20250801-doi
     - **価格レベル**: Standard S0
 
     \*Azure AI Vision 4.0 の機能は現在これらのリージョンでのみ利用可能です。
@@ -43,7 +41,7 @@ Azure AI Vision は、画像を分析することで視覚入力を解釈する�
 
 > **注**: **C#** または **Python** のいずれかの SDK を使用することができます。以下の手順では、希望する言語に適した操作を行います。
 
-1. Visual Studio Code の **Explorer** ペインで、**Labfiles/01-analyze-images** フォルダーに移動し、希望する言語に応じて **C-Sharp** または **Python** フォルダーを展開します。
+1. Visual Studio Code の **Explorer** ペインで、**02-analyze-images** フォルダーに移動し、希望する言語に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **image-analysis** フォルダーを右クリックして統合ターミナルを開き、希望する言語に応じて次のコマンドを実行して Azure AI Vision SDK パッケージをインストールします:
 
     **C#**
@@ -65,11 +63,13 @@ Azure AI Vision は、画像を分析することで視覚入力を解釈する�
 3. **image-analysis** フォルダーの内容を表示し、設定ファイルが含まれていることを確認します:
     - **C#**: appsettings.json
     - **Python**: .env
+
     設定ファイルを開き、Azure AI サービス リソースの **エンドポイント** と認証 **キー** を反映するように設定値を更新します。変更を保存します。
 
 4. **image-analysis** フォルダーにはクライアント アプリケーションのコード ファイルが含まれていることを確認します:
     - **C#**: Program.cs
     - **Python**: image-analysis.py
+
     コード ファイルを開き、既存の名前空間参照の下にある **Import namespaces** コメントの下に、Azure AI Vision SDK を使用するために必要な名前空間をインポートするための次の言語固有のコードを追加します:
 
     **C#**
