@@ -123,10 +123,14 @@ Azure AI Search は、AI スキルのエンリッチメントパイプライン�
 インデックスが作成されたので、検索できます。
 
 1. Azure AI Search リソースのページに移動し、**インデクス** ページを選択して 作成されたインデクスを選択します。
-2. 検索エクスプローラー で、**クエリ文字列** ボックスに次のクエリ文字列を入力し、**検索** を選択します。
 
-    ```
-    search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment eq 'positive'
+2. 検索エクスプローラー で、右側にある表示から **JSON ビュー** に変更し、次の検索クエリを送信します：
+    ```json
+    {
+    "search": "London",
+    "select": "url, sentiment, keyphrases",
+    "filter": "metadata_author eq 'Reviewer' and sentiment eq 'positive'"
+    }
     ```
 
     このクエリは、*London* を言及し、*Reviewer* によって作成され、ポジティブな **sentiment** ラベルを持つすべてのドキュメントの **url**、**sentiment**、および **keyphrases** を取得します (つまり、London を言及するポジティブなレビュー)。
